@@ -14,8 +14,8 @@ def suite():
     s = unittest.TestSuite()
     s.addTest(doctest.DocTestSuite(rdflib_django))
     s.addTest(doctest.DocTestSuite(store))
-    s.addTest(unittest.findTestCases(test_store))
-    s.addTest(unittest.findTestCases(test_rdflib))
-    s.addTest(unittest.findTestCases(test_seq))
-    s.addTest(unittest.findTestCases(test_namespaces))
+    s.addTest(unittest.findTestCases(test_store))  # pylint: disable=no-member
+    s.addTest(unittest.findTestCases(test_rdflib))  # pylint: disable=no-member
+    s.addTest(unittest.findTestCases(test_seq))  # pylint: disable=no-member
+    s.addTest(unittest.findTestCases(test_namespaces))  # pylint: disable=no-member
     return s

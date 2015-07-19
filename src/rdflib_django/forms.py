@@ -12,7 +12,7 @@ class NamespaceForm(forms.ModelForm):
     Form for editing namespaces.
     """
 
-    class Meta:
+    class Meta(object):
         model = models.NamespaceModel
         fields = ('prefix', 'uri')
 

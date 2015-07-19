@@ -61,3 +61,5 @@ LOGGING = {
             },
         }
 }
+
+SECRET_KEY = os.urandom(32)

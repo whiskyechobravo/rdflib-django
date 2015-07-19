@@ -527,7 +527,8 @@ class ContextTest(test.TestCase):
 
             self.assertEquals(set(c.subject_objects(self.hates)), {(self.bob, self.pizza), (self.bob, self.michel)})
             self.assertEquals(set(c.subject_objects(self.likes)),
-                    {(self.tarek, self.cheese), (self.michel, self.cheese), (self.michel, self.pizza), (self.bob, self.cheese), (self.tarek, self.pizza)})
+                              {(self.tarek, self.cheese), (self.michel, self.cheese), (self.michel, self.pizza), (self.bob, self.cheese),
+                               (self.tarek, self.pizza)})
 
             self.assertEquals(set(c.predicate_objects(self.michel)), {(self.likes, self.cheese), (self.likes, self.pizza)})
             self.assertEquals(set(c.predicate_objects(self.bob)), {(self.likes, self.cheese), (self.hates, self.pizza), (self.hates, self.michel)})
@@ -538,8 +539,8 @@ class ContextTest(test.TestCase):
             self.assertEquals(set(c.subject_predicates(self.michel)), {(self.bob, self.hates)})
 
             self.assertEquals(set(c), {(self.bob, self.hates, self.michel), (self.bob, self.likes, self.cheese), (self.tarek, self.likes, self.pizza),
-                (self.michel, self.likes, self.pizza), (self.michel, self.likes, self.cheese), (self.bob, self.hates, self.pizza),
-                (self.tarek, self.likes, self.cheese)})
+                                       (self.michel, self.likes, self.pizza), (self.michel, self.likes, self.cheese), (self.bob, self.hates, self.pizza),
+                                       (self.tarek, self.likes, self.cheese)})
 
         # remove stuff and make sure the graph is empty again
         self.removeStuff()
