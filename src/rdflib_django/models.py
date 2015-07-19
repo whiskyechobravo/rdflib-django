@@ -5,7 +5,7 @@ The underlying models are Resource centric, because rdflib-django is intended
 to be used for publishing resources.
 """
 from django.db import models
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import UUIDField
 from rdflib_django import fields
 
