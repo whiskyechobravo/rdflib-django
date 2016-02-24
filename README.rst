@@ -26,7 +26,7 @@ Add ``rdflib_django`` to your ``INSTALLED_APPS``:
 
     INSTALLED_APPS = (
         # other apps
-        'rdflib_django'.
+        'rdflib_django',
     )
 
 You can now use the following examples to obtain a graph.
