@@ -23,8 +23,8 @@ class LiteralField(models.TextField):
         if isinstance(value, Literal):
             return value
 
-        parts = value.split('^^')
-        if len(parts) != 3:
+        parts = value.rsplit('^^', 2)
+        if len(parts) < 3:
             raise ValueError("Wrong value: {0}".format(value))
         return Literal(parts[0], parts[1] or None, parts[2] or None)
 
