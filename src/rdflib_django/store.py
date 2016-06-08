@@ -48,7 +48,7 @@ def _get_named_graph(context):
     return models.NamedGraph.objects.get_or_create(identifier=context.identifier)[0]
 
 
-class DjangoStore(rdflib.store.Store):
+class DjangoStore(rdflib.store.Store):  # pylint: disable=abstract-method
     """
     RDFlib Store implementation the uses Django Models for storage and retrieval.
 
@@ -170,7 +170,7 @@ class DjangoStore(rdflib.store.Store):
         if o:
             filter_parameters['object'] = o
 
-        query_sets = [qs.filter(**filter_parameters) for qs in query_sets]  # pylint: disable=W0142
+        query_sets = [qs.filter(**filter_parameters) for qs in query_sets]
 
         for qs in query_sets:
             qs.delete()
@@ -192,7 +192,7 @@ class DjangoStore(rdflib.store.Store):
         if o:
             filter_parameters['object'] = o
 
-        query_sets = [qs.filter(**filter_parameters) for qs in query_sets]  # pylint: disable=W0142
+        query_sets = [qs.filter(**filter_parameters) for qs in query_sets]
 
         for qs in query_sets:
             for statement in qs:

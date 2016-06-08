@@ -10,6 +10,5 @@ if hasattr(settings, 'DJANGO_RDFLIB_DEVELOP') and getattr(settings, 'DJANGO_RDFL
     admin.autodiscover()
 
     urlpatterns = patterns('',
-        (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-        (r'^admin/', include(admin.site.urls)),
-    )
+                           (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+                           (r'^admin/', include(admin.site.urls)),)

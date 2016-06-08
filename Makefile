@@ -51,7 +51,7 @@ dev:	$(DJANGO)
 check:	$(TEST) $(FLAKE8) $(PYLINT)
 	$(TEST)
 	$(FLAKE8)
-	$(PYLINT)
+	$(PYLINT) --rcfile=pylint.rc rdflib_django
 
 
 snapshot:	$(BUILDOUT) clean check
