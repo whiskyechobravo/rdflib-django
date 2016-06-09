@@ -28,7 +28,7 @@ def _get_query_sets_for_object(o):
 
     This method always returns a list of size at least one.
     """
-    if o:
+    if o is not None:
         if isinstance(o, Literal):
             query_sets = [models.LiteralStatement.objects]
         else:
@@ -127,8 +127,8 @@ class DjangoStore(rdflib.store.Store):  # pylint: disable=abstract-method
         """
         Adds a triple to the store.
 
-        >>> from rdflib.term import URIRef
-        >>> from rdflib.namespace import RDF
+        >>> from rdflib.term import Literal, URIRef
+        >>> from rdflib.namespace import RDF, XSD
 
         >>> subject = URIRef('http://zoowizard.org/resource/Artis')
         >>> object = URIRef('http://schema.org/Zoo')
@@ -136,7 +136,10 @@ class DjangoStore(rdflib.store.Store):  # pylint: disable=abstract-method
         >>> g.add((subject, RDF.type, object))
         >>> len(g)
         1
-
+        >>> literal = Literal('false', datatype=XSD.boolean)
+        >>> g.add((subject, RDF.type, literal))
+        >>> len(g)
+        2
         """
         assert isinstance(s, Identifier)
         assert isinstance(p, Identifier)
