@@ -223,7 +223,8 @@ class DjangoStore(rdflib.store.Store):  # pylint: disable=abstract-method
 
     def bind(self, prefix, namespace):
         for ns in DEFAULT_NAMESPACES:
-            if ns[0] == prefix or unicode(ns[1]) == unicode(namespace):
+            if (ns[0] == prefix) ^ (unicode(ns[1]) == unicode(namespace)):
+                # Refuse to bind when either the prefix OR the namespace (but not both) match a default namespace
                 return
 
         try:
