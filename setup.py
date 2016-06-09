@@ -23,6 +23,8 @@ setup(
 
     install_requires = ['rdflib>=3.2.1'],
 
+    test_suite = 'rdflib_django.runtests.runtests',
+
     classifiers = [
         'Development Status :: 3 - Alpha',
         'Framework :: Django',
