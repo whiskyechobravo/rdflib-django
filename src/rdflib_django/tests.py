@@ -2,8 +2,8 @@
 Unittests and doctests for the rdflib_django app.
 """
 import doctest
-from django.utils import unittest
 import rdflib_django
+import unittest
 from rdflib_django import store, test_store, test_rdflib, test_seq, test_namespaces
 
 

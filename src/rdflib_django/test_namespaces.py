@@ -1,7 +1,7 @@
 """
 Unittests for namespace management.
 """
-from django.utils import unittest
+import unittest
 from rdflib.graph import Graph
 from rdflib.term import URIRef
 from rdflib_django.store import DjangoStore
