@@ -8,12 +8,10 @@ from rdflib.graph import Graph
 from rdflib.term import BNode, URIRef, Literal
 
 
-class LiteralField(models.TextField):
+class LiteralField(models.TextField, metaclass=models.SubfieldBase):
     """
     Custom field for storing literals.
     """
-
-    __metaclass__ = models.SubfieldBase
     description = "Field for storing Literals, including their type and language"
 
     def to_python(self, value):
@@ -36,7 +34,7 @@ class LiteralField(models.TextField):
         if not isinstance(value, Literal):
             raise TypeError("Value {0} has the wrong type: {1}".format(value, value.__class__))
 
-        return unicode(value) + "^^" + (value.language or '') + "^^" + (value.datatype or '')
+        return str(value) + "^^" + (value.language or '') + "^^" + (value.datatype or '')
 
 
 def deserialize_uri(value):
@@ -49,7 +47,7 @@ def deserialize_uri(value):
         return value
     if not value:
         return None
-    if not isinstance(value, basestring):
+    if not isinstance(value, str):
         raise ValueError("Cannot create URI from {0} of type {1}".format(value, value.__class__))
     if value.startswith("_:"):
         return BNode(value[2:])
@@ -63,18 +61,16 @@ def serialize_uri(value):
     if isinstance(value, BNode):
         return value.n3()
     if isinstance(value, URIRef):
-        return unicode(value)
+        return str(value)
     raise ValueError("Cannot get prepvalue for {0} of type {1}".format(value, value.__class__))
 
 
-class URIField(models.CharField):
+class URIField(models.CharField, metaclass=models.SubfieldBase):
     """
     Custom field for storing URIRefs and BNodes.
 
     URIRefs are stored as themselves; BNodes are stored in their Notation3 serialization.
     """
-
-    __metaclass__ = models.SubfieldBase
     description = "Field for storing URIRefs and BNodes."
 
     def __init__(self, *args, **kwargs):
@@ -92,12 +88,10 @@ class URIField(models.CharField):
         return serialize_uri(value)
 
 
-class GraphReferenceField(models.CharField):
+class GraphReferenceField(models.CharField, metaclass=models.SubfieldBase):
     """
     Custom field for storing graph references.
     """
-
-    __metaclass__ = models.SubfieldBase
     description = "Field for storing references to Graphs"
 
     def to_python(self, value):

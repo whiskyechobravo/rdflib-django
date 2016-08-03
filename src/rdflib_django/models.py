@@ -22,7 +22,7 @@ class NamedGraph(models.Model):
         verbose_name_plural = _("named graphs")
 
     def __unicode__(self):
-        return u"{0}".format(self.identifier)
+        return "{0}".format(self.identifier)
 
 
 class NamespaceModel(models.Model):
@@ -61,7 +61,7 @@ class URIStatement(models.Model):
         unique_together = ('subject', 'predicate', 'object', 'context')
 
     def __unicode__(self):
-        return u"{0}, {1}".format(self.as_triple(), self.context.identifier)    # pylint: disable=E1101
+        return "{0}, {1}".format(self.as_triple(), self.context.identifier)    # pylint: disable=E1101
 
     def as_triple(self):
         """
@@ -85,7 +85,7 @@ class LiteralStatement(models.Model):
         unique_together = ('subject', 'predicate', 'object', 'context')
 
     def __unicode__(self):
-        return u"{0}, {1}".format(self.as_triple(), self.context.identifier)    # pylint: disable=E1101
+        return "{0}, {1}".format(self.as_triple(), self.context.identifier)    # pylint: disable=E1101
 
     def as_triple(self):
         """

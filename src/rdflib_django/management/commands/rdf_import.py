@@ -49,7 +49,7 @@ Examples:
         source = args[0]
 
         if info:
-            print "Parsing {0}".format(source)
+            print("Parsing {0}".format(source))
 
         intermediate = Graph()
         try:
@@ -58,14 +58,14 @@ Examples:
             raise CommandError(e)
 
         if info:
-            print "Parsed {0} triples".format(len(intermediate))
+            print("Parsed {0} triples".format(len(intermediate)))
 
         identifier = URIRef(context_id) if context_id else BNode()
         graph = utils.get_named_graph(identifier, store_id=store_id)
 
         if info:
-            print "Storing {0} triples".format(len(intermediate))
+            print("Storing {0} triples".format(len(intermediate)))
         for triple in intermediate:
             graph.add(triple)
         if info:
-            print "Done"
+            print("Done")

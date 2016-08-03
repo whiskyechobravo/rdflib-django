@@ -12,9 +12,9 @@ from rdflib_django.models import NamespaceModel
 DEFAULT_STORE = "Default Store"
 
 DEFAULT_NAMESPACES = (
-    ("xml", u"http://www.w3.org/XML/1998/namespace"),
-    ("rdf", u"http://www.w3.org/1999/02/22-rdf-syntax-ns#"),
-    ("rdfs", u"http://www.w3.org/2000/01/rdf-schema#")
+    ("xml", "http://www.w3.org/XML/1998/namespace"),
+    ("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#"),
+    ("rdfs", "http://www.w3.org/2000/01/rdf-schema#")
     )
 
 
@@ -123,7 +123,7 @@ class DjangoStore(rdflib.store.Store):  # pylint: disable=abstract-method
         models.URIStatement.objects.all().delete()
         models.LiteralStatement.objects.all().delete()
 
-    def add(self, (s, p, o), context, quoted=False):
+    def add(self, s_p_o, context, quoted=False):
         """
         Adds a triple to the store.
 
@@ -141,6 +141,7 @@ class DjangoStore(rdflib.store.Store):  # pylint: disable=abstract-method
         >>> len(g)
         2
         """
+        (s, p, o) = s_p_o
         assert isinstance(s, Identifier)
         assert isinstance(p, Identifier)
         assert isinstance(o, Identifier)
@@ -156,10 +157,11 @@ class DjangoStore(rdflib.store.Store):  # pylint: disable=abstract-method
             context=named_graph,
             )
 
-    def remove(self, (s, p, o), context=None):
+    def remove(self, s_p_o, context=None):
         """
         Removes a triple from the store.
         """
+        (s, p, o) = s_p_o
         named_graph = _get_named_graph(context)
         query_sets = _get_query_sets_for_object(o)
 
@@ -178,10 +180,11 @@ class DjangoStore(rdflib.store.Store):  # pylint: disable=abstract-method
         for qs in query_sets:
             qs.delete()
 
-    def triples(self, (s, p, o), context=None):
+    def triples(self, s_p_o, context=None):
         """
         Returns all triples in the current store.
         """
+        (s, p, o) = s_p_o
         named_graph = _get_named_graph(context)
         query_sets = _get_query_sets_for_object(o)
 
@@ -226,7 +229,7 @@ class DjangoStore(rdflib.store.Store):  # pylint: disable=abstract-method
 
     def bind(self, prefix, namespace):
         for ns in DEFAULT_NAMESPACES:
-            if (ns[0] == prefix) ^ (unicode(ns[1]) == unicode(namespace)):
+            if (ns[0] == prefix) ^ (str(ns[1]) == str(namespace)):
                 # Refuse to bind when either the prefix OR the namespace (but not both) match a default namespace
                 return
 

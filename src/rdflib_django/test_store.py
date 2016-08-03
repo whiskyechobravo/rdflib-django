@@ -37,13 +37,13 @@ class GraphTest(test.TestCase):
         What happens if we add statements that are all URI's
         """
         self.graph.add((artis, RDF.type, zoo))
-        self.assertEquals(len(self.graph), 1)
+        self.assertEqual(len(self.graph), 1)
 
         self.graph.add((artis, RDF.type, org))
-        self.assertEquals(len(self.graph), 2)
+        self.assertEqual(len(self.graph), 2)
 
         self.graph.add((artis, RDF.type, zoo))
-        self.assertEquals(len(self.graph), 2)
+        self.assertEqual(len(self.graph), 2)
 
     def test_single_triple(self):
         """
@@ -51,7 +51,7 @@ class GraphTest(test.TestCase):
         """
         self.graph.add((artis, RDF.type, zoo))
         triples = list(self.graph.triples((None, None, None)))
-        self.assertEquals(len(triples), 1)
+        self.assertEqual(len(triples), 1)
 
         self.assertTupleEqual(triples[0], (artis, RDF.type, zoo))
 
@@ -62,12 +62,12 @@ class GraphTest(test.TestCase):
         self.graph.add((artis, RDF.type, zoo))
         self.graph.add((artis, RDF.type, org))
         self.graph.add((berlin_zoo, RDF.type, zoo))
-        self.assertEquals(len(list(self.graph.triples((None, None, None)))), 3)
+        self.assertEqual(len(list(self.graph.triples((None, None, None)))), 3)
 
-        self.assertEquals(len(list(self.graph.triples((artis, None, None)))), 2)
-        self.assertEquals(len(list(self.graph.triples((None, RDF.type, None)))), 3)
-        self.assertEquals(len(list(self.graph.triples((None, None, zoo)))), 2)
-        self.assertEquals(len(list(self.graph.triples((None, None, org)))), 1)
+        self.assertEqual(len(list(self.graph.triples((artis, None, None)))), 2)
+        self.assertEqual(len(list(self.graph.triples((None, RDF.type, None)))), 3)
+        self.assertEqual(len(list(self.graph.triples((None, None, zoo)))), 2)
+        self.assertEqual(len(list(self.graph.triples((None, None, org)))), 1)
 
     def test_blank_nodes(self):
         """
@@ -87,9 +87,9 @@ class GraphTest(test.TestCase):
         self.graph.add((artis, EX['date'], date_literal))
         self.graph.add((artis, EX['bool'], bool_literal))
         self.graph.add((artis, EX['number'], number_literal))
-        self.assertEquals(len(self.graph), 4)
+        self.assertEqual(len(self.graph), 4)
 
-        self.assertEquals(self.graph.value(artis, RDFS.label), artis_label)
-        self.assertEquals(self.graph.value(artis, EX['date']), date_literal)
-        self.assertEquals(self.graph.value(artis, EX['bool']), bool_literal)
-        self.assertEquals(self.graph.value(artis, EX['number']), number_literal)
+        self.assertEqual(self.graph.value(artis, RDFS.label), artis_label)
+        self.assertEqual(self.graph.value(artis, EX['date']), date_literal)
+        self.assertEqual(self.graph.value(artis, EX['bool']), bool_literal)
+        self.assertEqual(self.graph.value(artis, EX['number']), number_literal)
