@@ -8,11 +8,14 @@ from rdflib.graph import Graph
 from rdflib.term import BNode, URIRef, Literal
 
 
-class LiteralField(models.TextField, metaclass=models.SubfieldBase):
+class LiteralField(models.TextField):
     """
     Custom field for storing literals.
     """
     description = "Field for storing Literals, including their type and language"
+
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
 
     def to_python(self, value):
         if value is None:
@@ -65,7 +68,7 @@ def serialize_uri(value):
     raise ValueError("Cannot get prepvalue for {0} of type {1}".format(value, value.__class__))
 
 
-class URIField(models.CharField, metaclass=models.SubfieldBase):
+class URIField(models.CharField):
     """
     Custom field for storing URIRefs and BNodes.
 
@@ -78,6 +81,9 @@ class URIField(models.CharField, metaclass=models.SubfieldBase):
             kwargs['max_length'] = 500
         super(URIField, self).__init__(*args, **kwargs)
 
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
+
     def to_python(self, value):
         return deserialize_uri(value)
 
@@ -88,11 +94,14 @@ class URIField(models.CharField, metaclass=models.SubfieldBase):
         return serialize_uri(value)
 
 
-class GraphReferenceField(models.CharField, metaclass=models.SubfieldBase):
+class GraphReferenceField(models.CharField):
     """
     Custom field for storing graph references.
     """
     description = "Field for storing references to Graphs"
+
+    def from_db_value(self, value, expression, connection, context):
+        return self.to_python(value)
 
     def to_python(self, value):
         if isinstance(value, Graph):
