@@ -4,9 +4,9 @@ The rdflib_django implementation uses Django models to store its triples.
 The underlying models are Resource centric, because rdflib-django is intended
 to be used for publishing resources.
 """
+import uuid
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django_extensions.db.fields import UUIDField
 from rdflib_django import fields
 
 
@@ -51,7 +51,7 @@ class URIStatement(models.Model):
     Statement where the object is a URI.
     """
 
-    id = UUIDField("ID", primary_key=True)
+    id = models.UUIDField("ID", primary_key=True, default=uuid.uuid4)
     subject = fields.URIField(verbose_name=_("Subject"), db_index=True)
     predicate = fields.URIField(_("Predicate"), db_index=True)
     object = fields.URIField(_("Object"), db_index=True)
@@ -75,7 +75,7 @@ class LiteralStatement(models.Model):
     Statement where the object is a literal.
     """
 
-    id = UUIDField("ID", primary_key=True)
+    id = models.UUIDField("ID", primary_key=True, default=uuid.uuid4)
     subject = fields.URIField(verbose_name=_("Subject"), db_index=True)
     predicate = fields.URIField(_("Predicate"), db_index=True)
     object = fields.LiteralField(_("Object"), db_index=True)
